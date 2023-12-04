@@ -19,7 +19,7 @@ export default function RootLayout({ children }) {
           <Image src={logo} alt="Logo" className=""/>
         </div>
         <search className="relative">
-            <input type="text" placeholder="Search" className="bg-transparent rounded-3xl border-2 border-secondaryBlack text-textColor w-rem26 pl-5 pr-5 pt-2 pb-2 text-xs"/>
+            <input type="text" placeholder="Search" className="focus:outline-none bg-transparent rounded-3xl border-2 border-secondaryBlack text-textColor w-rem26 pl-5 pr-5 pt-2 pb-2 text-xs"/>
             <div className="absolute w-10 h-full bg-secondaryBlack top-0 right-0 rounded-r-3xl cursor-pointer">
               <div className="flex justify-center items-center h-full">
                 <Image src={search} alt="search" className="w-4 h-4"/>
