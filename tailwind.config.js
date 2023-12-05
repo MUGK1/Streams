@@ -19,11 +19,16 @@ module.exports = {
         primaryGray: "#A5A5A5",
         primaryRed: "#FF0000",
         primaryBlue: "#3EA6FF",
+        backgroundGray:"#262626"
       },
       width: {
         rem26: '26rem',
       }
     },
+    fontFamily: {
+       textFont: ["Noto Sans", "sans-serif"],
+    },
+    
   },
   plugins: [],
 }

@@ -4,6 +4,7 @@ import logo from '../public/images/Logo.svg'
 import search from '../public/images/Search.svg'
 import logout from '../public/images/Logout.svg'
 import userAvatar from '../public/images/User_Avatar.svg'
+import Video from './Components/Video'
 
 export default function RootLayout({ children }) {
   return (
@@ -35,6 +36,7 @@ export default function RootLayout({ children }) {
           </div>
         </div>
       </div>
+      <Video></Video>
     </header>
     {children}
     </body>
