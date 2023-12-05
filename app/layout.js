@@ -12,7 +12,7 @@ export default function RootLayout({ children }) {
       <meta charSet="utf-8" />
       <title>Streams Platform</title>
     </head>
-    <body className="bg-primaryBlack">
+    <body className="relative bg-primaryBlack">
     <header className="h-24">
       <div className="flex justify-between w-11/12 h-16 items-center text-center center">
         <div className="">
