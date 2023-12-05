@@ -4,7 +4,7 @@ import logo from '../public/images/Logo.svg'
 import search from '../public/images/Search.svg'
 import logout from '../public/images/Logout.svg'
 import userAvatar from '../public/images/User_Avatar.svg'
-import Video from './Components/Video'
+import Video from './Components/Video/Video'
 
 export default function RootLayout({ children }) {
   return (
