@@ -36,7 +36,6 @@ export default function RootLayout({ children }) {
           </div>
         </div>
       </div>
-      <Video></Video>
     </header>
     {children}
     </body>
