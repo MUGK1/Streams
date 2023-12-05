@@ -1,6 +1,6 @@
-import thumbnail from '../../public/images/Thumbnail.jpg'
+import thumbnail from '../../../public/images/Thumbnail.jpg'
 import Image from 'next/image'
-import profile from '../../public/images/channel_profile.jpg'
+import profile from '../../../public/images/channel_profile.jpg'
 function Video({ props }) {
     return (
         <div className="group  w-72 m-8 p-0.5 rounded active:bg-backgroundGray">
