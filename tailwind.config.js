@@ -17,10 +17,10 @@ module.exports = {
         secondaryBlack: "#282828",
         textColor: "#888888",
         primaryGray: "#A5A5A5",
-        primaryRed: "#FF0000",
+        primaryRed: "#179F2E",
         primaryBlue: "#3EA6FF",
-        backgroundGray:"#262626",
-        buttonBlack:"#3d3d3d"
+        backgroundGray: "#262626",
+        buttonBlack: "#3d3d3d",
       },
       width: {
         rem26: "26rem",
