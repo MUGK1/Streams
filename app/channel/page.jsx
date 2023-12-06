@@ -30,7 +30,7 @@ function channel() {
         <Video />
       </div>
     </div>
-  );
+    );
 }
 
 export default channel;

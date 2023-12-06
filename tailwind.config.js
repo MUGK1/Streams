@@ -19,7 +19,8 @@ module.exports = {
         primaryGray: "#A5A5A5",
         primaryRed: "#FF0000",
         primaryBlue: "#3EA6FF",
-        backgroundGray: "#262626",
+        backgroundGray:"#262626",
+        buttonBlack:"#3d3d3d"
       },
       width: {
         rem26: "26rem",
