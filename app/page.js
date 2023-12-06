@@ -5,7 +5,7 @@ import LogIn from "@/app/Components/loginPage/LogIn";
 export default function Home() {
   return (
     <main className="text-white">
-      <LogIn />
+      <Video />
     </main>
   );
 }
