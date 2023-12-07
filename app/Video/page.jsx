@@ -18,7 +18,11 @@ function VideoPage() {
       <div>
         <div className="w-full flex flex-start group-active:bg-backgroundGray ">
           <div className=" w-10">
-            <Image src={profile} className=" rounded-full w-8" />
+            <Image
+              src={profile}
+              className=" rounded-full w-8"
+              alt="profilePhoto"
+            />
           </div>
           <div className="w-60">
             <div className=" w-60  text-white truncate">

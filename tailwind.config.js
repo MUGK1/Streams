@@ -35,6 +35,9 @@ module.exports = {
     fontFamily: {
       textFont: ["Noto Sans", "sans-serif"],
     },
+    minHeight: {
+      min3: "3rem",
+    },
   },
   plugins: [],
 };
