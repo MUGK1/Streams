@@ -26,7 +26,7 @@ function channel() {
         <ChannelInfo />
         <UploadVideo isClicked={isClicked} setIsClicked={setIsClicked} />
       </div>
-      <div className="flex flex-wrap items-center justify-center mx-auto mt-24">
+      <div className="flex flex-wrap items-center gap-10 justify-center mx-auto mt-24">
         <Video />
         <Video />
         <Video />
