@@ -1,7 +1,7 @@
 import Image from "next/image";
-import profile from "../../public/images/channel_profile.jpg";
+import profile from "../../../public/images/channel_profile.jpg";
 import Video from "@/app/Components/Video/Video";
-import userAvatar from "../../public/images/User_Avatar.svg";
+import userAvatar from "../../../public/images/User_Avatar.svg";
 
 function VideoPage() {
   const embedUrl = `https://www.youtube.com/embed/Xh26-fF6fTM?autoplay=1&mute=0`;
