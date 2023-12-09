@@ -1,13 +1,30 @@
 import thumbnail from "../../../public/images/Thumbnail.jpg";
 import Image from "next/image";
 import profile from "../../../public/images/channel_profile.jpg";
-import dynamic from "next/dynamic";
 import VideoButton from "@/app/Components/Video/VideoButton";
 
-function Video({ props }) {
+function Video(props) {
   const id = 13;
+
+  function calculateDaysAgo(dateString1) {
+    const date1 = new Date(dateString1);
+    const today = new Date();
+    const differenceInMillis = Math.abs(today - date1);
+    const differenceInDays = Math.floor(
+      differenceInMillis / (1000 * 60 * 60 * 24),
+    );
+    let result = " ";
+    if (differenceInDays <= 365) {
+      result = `${differenceInDays} days ago`;
+    } else {
+      const years = Math.ceil(differenceInDays / 356);
+      result = `${years} years ago`;
+    }
+
+    return result;
+  }
   return (
-    <VideoButton id={id}>
+    <VideoButton id={props.id}>
       <div className="group w-80 rounded p-2">
         <div className="mb-2 group-hover:cursor-pointer">
           <Image
@@ -27,15 +44,19 @@ function Video({ props }) {
           <div className="w-60">
             <div className=" w-60 text-white truncate">
               <span className=" font-textFont font-bold mx-1 w-full">
-                Next.js Projects: Build a Full-stack App with Next.js, Tailwind,
-                Radix UI, and Prisma
+                {props.title}
               </span>
             </div>
             <div className="w-full text-gray-600 text-sm font-textFont whitespace-nowrap">
-              <span className="mx-1 block ">Programming with Mosh</span>
-              <span className="mx-1 inline-block mt-1"> 91k views </span>
+              <span className="mx-1 block ">{props.channelName}</span>
+              <span className="mx-1 inline-block mt-1">
+                {" "}
+                {props.views} views{" "}
+              </span>
               <span className="font-bold text-lg">&#183;</span>
-              <span className="mx-1 inline-block">3 months ago </span>
+              <span className="mx-1 inline-block">
+                {calculateDaysAgo(props.publishedAt)}{" "}
+              </span>
             </div>
           </div>
         </div>

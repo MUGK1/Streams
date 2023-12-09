@@ -1,3 +1,4 @@
+"use client";
 import "./globals.css";
 import Image from "next/image";
 import logo from "../public/images/Logo.svg";
@@ -5,8 +6,29 @@ import search from "../public/images/Search.svg";
 import logout from "../public/images/Logout.svg";
 import userAvatar from "../public/images/User_Avatar.svg";
 import Video from "./Components/Video/Video";
+import ChannelButton from "@/app/Components/channelCom/ChannelButton";
+import { useEffect, useState } from "react";
 
 export default function RootLayout({ children }) {
+  const [userChannels, setUserChannels] = useState([]);
+  const handleLogOut = () => {
+    localStorage.removeItem("token");
+    window.location.reload();
+  };
+
+  useEffect(() => {
+    fetch("https://localhost:7001/api/User/get-user-channels", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+    })
+      .then((res) => res.json())
+      .then((data) => setUserChannels(data))
+      .catch((err) => console.log(err));
+  }, []);
+
   return (
     <html lang="en">
       <head>
@@ -31,9 +53,18 @@ export default function RootLayout({ children }) {
                 </div>
               </div>
             </search>
-            <div className="flex justify-between w-16">
+            <div className="flex justify-between w-28">
               <div className="cursor-pointer">
-                <Image src={logout} alt="logout" className="" />
+                {userChannels.map((channel, index) => (
+                  <ChannelButton key={index} id={channel.id}>
+                    <Image src={userAvatar} alt="userAvatar" className="mr-3" />
+                  </ChannelButton>
+                ))}
+              </div>
+              <div onClick={handleLogOut} className="cursor-pointer">
+                <a href="/">
+                  <Image src={logout} alt="logout" className="" />
+                </a>
               </div>
               <div className="cursor-pointer">
                 <Image src={userAvatar} alt="userAvatar" className="" />
