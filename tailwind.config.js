@@ -33,7 +33,7 @@ module.exports = {
       },
     },
     fontFamily: {
-      textFont: ["Noto Sans", "sans-serif"],
+      textFont: ["Youtube Sans"],
     },
     minHeight: {
       min3: "3rem",
