@@ -82,8 +82,18 @@ export default function Home() {
         ))}
       </div>
       <div className="flex flex-wrap items-center gap-10 justify-center mx-auto p-0 m-0">
-        {videos.map((item) => (
-          <Video data={item} />
+        {videos.map((video) => (
+          <Video
+            key={video.id}
+            id={video.id}
+            title={video.title}
+            description={video.description}
+            views={video.viewsCount}
+            publishedAt={video.publishedAt}
+            thumbnail={video.thumbnailUrl}
+            channelName={video.channelName}
+            avatarUrl={video.avatarUrl}
+          />
         ))}
       </div>
     </main>
