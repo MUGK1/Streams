@@ -10,12 +10,13 @@ function Video(props) {
     const date1 = new Date(dateString1);
     const today = new Date();
     const differenceInMillis = Math.abs(today - date1);
-    const differenceInDays = Math.floor(differenceInMillis / (1000 * 60 * 60 * 24));
+    const differenceInDays = Math.floor(
+      differenceInMillis / (1000 * 60 * 60 * 24),
+    );
     let result = " ";
     if (differenceInDays <= 365) {
       result = `${differenceInDays} days ago`;
-    }
-    else {
+    } else {
       const years = Math.ceil(differenceInDays / 356);
       result = `${years} years ago`;
     }
@@ -53,7 +54,9 @@ function Video(props) {
                 {props.views} views{" "}
               </span>
               <span className="font-bold text-lg">&#183;</span>
-              <span className="mx-1 inline-block">{calculateDaysAgo(props.data['publishedAt'])} </span>
+              <span className="mx-1 inline-block">
+                {calculateDaysAgo(props.publishedAt)}{" "}
+              </span>
             </div>
           </div>
         </div>
