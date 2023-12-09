@@ -6,6 +6,35 @@ export default function Home() {
   return (
     <main className="text-white">
       <Video />
+      <Video />
+      <Video />
+      <Video />
+      <Video />
+      <Video />
+      <Video />
+      <Video />
+      <Video />
+      <Video />
+      <Video />
+      <Video />
+      <Video />
+      <Video />
+      <Video />
+      <Video />
+      <Video />
+      <Video />
+      <Video />
+      <Video />
+      <Video />
+      <Video />
+      <Video />
+      <Video />
+      <Video />
+      <Video />
+      <Video />
+      <Video />
+      <Video />
+      <Video />
     </main>
   );
 }

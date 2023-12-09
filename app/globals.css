@@ -12,6 +12,28 @@ html {
     font-family: 'Noto Sans', sans-serif;
 }
 
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+/* Firefox */
+input[type="number"] {
+    -moz-appearance: textfield;
+}
+
+
 .center {
     margin: 0 auto;
+}
+
+.buttonCancelDefault {
+    border: none;
+    /*text-align: center;*/
+    text-decoration: none;
+    display: block;
+    cursor: pointer;
+    border-radius: 4px;
 }

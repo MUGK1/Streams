@@ -60,6 +60,13 @@ function LogIn() {
                 className="w-36"
               />
             </div>
+            {isChecked && (
+              <input
+                type="text"
+                placeholder="Country Name"
+                className="focus:outline-none mb-5  bg-transparent rounded-3xl border-2 border-secondaryBlack text-textColor w-rem26 h-12 pl-5 pr-5 pt-2 pb-2 text-sm"
+              />
+            )}
           </>
         )}
 
