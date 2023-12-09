@@ -3,8 +3,15 @@ import { useState } from "react";
 import Image from "next/image";
 import ChannelLogo from "../../../public/images/ChannelLogo.png";
 
-function ChannelInfo() {
+function ChannelInfo(props) {
+  const { channelName, avatarURL, createdAt, subscribersCount } = props;
   const [isSubscribed, setIsSubscribed] = useState(false);
+
+  function dateFormat(date) {
+    if (date === undefined) return;
+    const splitDate = date.split("-");
+    return splitDate[0];
+  }
 
   return (
     <div className="flex items-center justify-between w-rem34">
@@ -13,14 +20,14 @@ function ChannelInfo() {
       </div>
       <div>
         <h1 className="font-textFont font-black text-4xl mb-3">
-          Branch Education
+          {channelName}
         </h1>
         <div className="text-primaryGray">
-          <span>@BranchEducation </span>
+          <span>@{channelName} </span>
           <span>•</span>
-          <span> Since 2017</span>
+          <span> Since {dateFormat(createdAt)}</span>
         </div>
-        <p className="text-primaryGray">4.1 Million subscribers</p>
+        <p className="text-primaryGray">{subscribersCount} subscribers</p>
         <p className="text-primaryGray mb-3">122 Million Views</p>
         <div className="flex items-center justify-between w-72">
           <button

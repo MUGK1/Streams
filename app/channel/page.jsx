@@ -5,10 +5,121 @@ import ChannelInfo from "@/app/Components/channelCom/ChannelInfo";
 import Video from "@/app/Components/Video/Video";
 import UploadVideo from "@/app/Components/channelCom/UploadVideo";
 import VideoInfoForm from "@/app/Components/channelCom/VideoInfoForm";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
-function channel() {
+function Channel(props) {
+  const { channelId, channelName, avatarURL, createdAt, subscribersCount } =
+    props;
   const [isClicked, setIsClicked] = useState(false);
+  const [channelVideos, setChannelVideos] = useState([]);
+  const [totalSubscribersLikes, setTotalSubscribersLikes] = useState("0");
+  const [totalSubscribersDisLikes, setTotalSubscribersDisLikes] = useState("0");
+  const [totalUnSubscribersLikes, setTotalUnSubscribersLikes] = useState("0");
+  const [totalUnSubscribersDisLikes, setTotalUnSubscribersDisLikes] =
+    useState("0");
+
+  useEffect(() => {
+    fetch(
+      `https://localhost:7001/api/Channel/get-channelVideos-by-id?ChannelId=${channelId}`,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      },
+    )
+      .then((res) => res.json())
+      .then((data) => {
+        setChannelVideos(data);
+        console.log("data ", data);
+      })
+      .catch((err) => {
+        console.log("err", err);
+      });
+  }, [channelId]);
+
+  console.log("channelVideos", channelVideos);
+
+  useEffect(() => {
+    fetch(
+      `https://localhost:7001/api/Channel/get-subscribersDisLikes?ChannelId=${channelId}`,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      },
+    )
+      .then((res) => res.json())
+      .then((data) => {
+        setTotalSubscribersDisLikes(data);
+        console.log("data totalSubscribersDisLikes", data);
+      })
+      .catch((err) => {
+        console.log("err", err);
+      });
+  }, [channelId]);
+
+  useEffect(() => {
+    fetch(
+      `https://localhost:7001/api/Channel/get-unsubscribersLikes?ChannelId=${channelId}`,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      },
+    )
+      .then((res) => res.json())
+      .then((data) => {
+        setTotalUnSubscribersLikes(data);
+        console.log("data totalUnSubscribersLikes", data);
+      })
+      .catch((err) => {
+        console.log("err", err);
+      });
+  }, [channelId]);
+
+  useEffect(() => {
+    fetch(
+      `https://localhost:7001/api/Channel/get-subscribersLikes?ChannelId=${channelId}`,
+      {
+        method: "GET",
+      },
+    )
+      .then((res) => res.json())
+      .then((data) => {
+        setTotalSubscribersLikes(data);
+        console.log("data totalSubscribersLikes", data);
+      })
+      .catch((err) => {
+        console.log("err", err);
+      });
+  }, [channelId]);
+  //
+  useEffect(() => {
+    fetch(
+      `https://localhost:7001/api/Channel/get-unsubscribersDisLikes?ChannelId=${channelId}`,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      },
+    )
+      .then((res) => res.json())
+      .then((data) => {
+        setTotalUnSubscribersDisLikes(data);
+        console.log("data totalSubscribersLikes", data);
+      })
+      .catch((err) => {
+        console.log("err", err);
+      });
+  }, [channelId]);
 
   return (
     <div>
@@ -23,24 +134,53 @@ function channel() {
         />
       </div>
       <div className="flex items-center justify-between w-9/12 mx-auto mt-24">
-        <ChannelInfo />
-        <UploadVideo isClicked={isClicked} setIsClicked={setIsClicked} />
+        <ChannelInfo
+          channelName={channelName}
+          avatarURL={avatarURL}
+          createdAt={createdAt}
+          subscribersCount={subscribersCount}
+        />
+        <div className="flex flex-col items-center justify-center">
+          <UploadVideo isClicked={isClicked} setIsClicked={setIsClicked} />
+          <div className="grid grid-cols-2 gap-x-10 gap-y-3 mt-7">
+            <div className="flex items-center p-2 rounded-xl bg-primaryRed">
+              <p className="font-black mr-2 ">Total Subscribers Likes: </p>
+              <p className="font-black mr-2 ">{totalSubscribersLikes}</p>
+            </div>
+            <div className="flex items-center p-2 rounded-xl bg-primaryRed">
+              <p className="font-black mr-2 ">Total Subscribers DisLikes: </p>
+              <p className="font-black mr-2 ">{totalSubscribersDisLikes}</p>
+            </div>
+            <div className="flex items-center p-2 rounded-xl bg-primaryRed">
+              <p className="font-black mr-2 ">Total UnSubscribers Likes: </p>
+              <p className="font-black mr-2 ">{totalUnSubscribersLikes}</p>
+            </div>
+            <div className="flex items-center p-2 rounded-xl bg-primaryRed">
+              <p className="font-black mr-2 ">Total UnSubscribers DisLikes: </p>
+              <p className="font-black mr-2 ">{totalUnSubscribersDisLikes}</p>
+            </div>
+          </div>
+        </div>
       </div>
-      <div className="flex flex-wrap items-center gap-10 justify-center mx-auto mt-24">
-        <Video />
-        <Video />
-        <Video />
-        <Video />
-        <Video />
-        <Video />
-        <Video />
-        <Video />
-        <Video />
-        <Video />
-        <Video />
+      <div className="flex flex-wrap items-center pb-10 gap-10 justify-center mx-auto mt-24">
+        {channelVideos.map((video) => {
+          return (
+            <Video
+              key={video.id}
+              id={video.id}
+              title={video.title}
+              description={video.description}
+              views={video.viewsCount}
+              publishedAt={video.publishedAt}
+              thumbnail={video.thumbnailUrl}
+              channelName={video.channelName}
+              avatarUrl={video.avatarUrl}
+            />
+          );
+        })}
       </div>
     </div>
   );
 }
 
-export default channel;
+export default Channel;
