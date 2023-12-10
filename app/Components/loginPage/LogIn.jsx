@@ -10,8 +10,19 @@ function LogIn(props) {
     email: "",
     password: "",
   });
+  const [signUpInfo, setSignUpInfo] = useState({
+    name: "",
+    email: "",
+    password: "",
+    dateOfBirth: "",
+    country: "",
+  });
+
   const [error, setError] = useState(false);
-  const [sendData, setSendData] = useState(false);
+  // const [sendData, setSendData] = useState(false);
+  const [requestCount, setRequestCount] = useState(0);
+  const [successSignUp, setSuccessSignUp] = useState(false);
+  const [invalidCredentials, setInvalidCredentials] = useState(false);
 
   const handleChange = (e) => {
     setIsChecked(e.target.checked);
@@ -22,12 +33,29 @@ function LogIn(props) {
       setError(true);
     } else {
       setError(false);
-      setSendData(true);
+      setRequestCount((prev) => prev + 1);
+    }
+  };
+
+  const handleSignUpError = () => {
+    if (
+      signUpInfo.email === "" ||
+      signUpInfo.password === "" ||
+      signUpInfo.name === "" ||
+      signUpInfo.dateOfBirth === ""
+    ) {
+      setError(true);
+    } else if (isChecked && signUpInfo.country === "") {
+      setError(true);
+    } else {
+      setError(false);
+      setRequestCount((prev) => prev + 1);
     }
   };
 
   useEffect(() => {
-    if (sendData === false) return;
+    if (requestCount === 0 || doNotHaveAnAccount) return;
+    setInvalidCredentials(false);
     fetch("https://localhost:7001/api/Authentication/login", {
       method: "POST",
       headers: {
@@ -36,27 +64,67 @@ function LogIn(props) {
       body: JSON.stringify(userInfo),
     })
       .then((res) => {
-        if (res.ok) {
-          props.setShowLogin(false);
+        if (!res.ok) {
+          setInvalidCredentials(true);
         }
         return res.json();
       })
       .then((data) => {
         localStorage.setItem("token", data.token);
+        props.setShowLogin(false);
         window.location.reload();
       })
       .catch((err) => {
         console.log("err", err);
       });
-  }, [sendData]);
+  }, [requestCount]);
+
+  useEffect(() => {
+    if (requestCount === 0 || !doNotHaveAnAccount) return;
+    fetch("https://localhost:7001/api/Authentication/signup", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        ...signUpInfo,
+        isCreator: isChecked,
+      }),
+    })
+      .then((res) => {
+        if (res.ok) {
+          setSuccessSignUp(true);
+          setDoNotHaveAnAccount(false);
+        }
+        return res.json();
+      })
+      .catch((err) => {
+        console.log("err", err);
+      });
+  }, [requestCount]);
 
   return (
     <div className="absolute top-0 left-0 w-screen h-screen bg-primaryBlack z-10">
       <div className="flex flex-col justify-center items-center h-full w-fit center ">
+        {(successSignUp || invalidCredentials) && (
+          <div
+            className={`${
+              invalidCredentials ? "bg-red-700" : "bg-primaryRed"
+            } w-rem34 h-12 rounded-3xl flex flex-col mb-4 justify-center items-center`}
+          >
+            <p className="text-primaryBlack text-sm">
+              {invalidCredentials
+                ? !doNotHaveAnAccount
+                  ? "incorrect Email Or Password"
+                  : "Something Went Wrong"
+                : "You have successfully signed up"}
+            </p>
+          </div>
+        )}
         <div className="mb-16 ">
           <Image src={logo} alt="Logo" className="w-40" />
         </div>
-        {!doNotHaveAnAccount ? (
+        {!doNotHaveAnAccount || successSignUp ? (
           <>
             <input
               type="email"
@@ -80,19 +148,36 @@ function LogIn(props) {
             <input
               type="text"
               placeholder="Name"
+              onChange={(e) => {
+                setSignUpInfo({ ...signUpInfo, name: e.target.value });
+              }}
               className="focus:outline-none mb-4 bg-transparent rounded-3xl border-2 border-secondaryBlack text-textColor w-rem26 h-12 pl-5 pr-5 pt-2 pb-2 text-sm"
             />
             <input
               type="email"
               placeholder="Email Address"
+              onChange={(e) => {
+                setSignUpInfo({ ...signUpInfo, email: e.target.value });
+              }}
               className="focus:outline-none mb-5  bg-transparent rounded-3xl border-2 border-secondaryBlack text-textColor w-rem26 h-12 pl-5 pr-5 pt-2 pb-2 text-sm"
+            />
+            <input
+              type="date"
+              placeholder="Date of Birth"
+              onChange={(e) => {
+                setSignUpInfo({ ...signUpInfo, dateOfBirth: e.target.value });
+              }}
+              className="focus:outline-none mb-4 bg-transparent rounded-3xl border-2 border-secondaryBlack text-textColor w-rem26 h-12 pl-5 pr-5 pt-2 pb-2 text-sm"
             />
             <input
               type="password"
               placeholder="Password"
+              onChange={(e) => {
+                setSignUpInfo({ ...signUpInfo, password: e.target.value });
+              }}
               className="focus:outline-none mb-5  bg-transparent rounded-3xl border-2 border-secondaryBlack text-textColor w-rem26 h-12 pl-5 pr-5 pt-2 pb-2 text-sm"
             />
-            <div className=" flex items-center justify-between mb-5  bg-transparent rounded-3xl border-2 border-secondaryBlack text-textColor w-rem26 h-12 pl-5 pr-5 pt-2 pb-2 text-sm">
+            <div className="flex items-center justify-between mb-5  bg-transparent rounded-3xl border-2 border-secondaryBlack text-textColor w-rem26 h-12 pl-5 pr-5 pt-2 pb-2 text-sm">
               <p className="">Do you want to open a Channel?</p>
               <input
                 type="checkbox"
@@ -107,6 +192,9 @@ function LogIn(props) {
               <input
                 type="text"
                 placeholder="Country Name"
+                onChange={(e) => {
+                  setSignUpInfo({ ...signUpInfo, country: e.target.value });
+                }}
                 className="focus:outline-none mb-5  bg-transparent rounded-3xl border-2 border-secondaryBlack text-textColor w-rem26 h-12 pl-5 pr-5 pt-2 pb-2 text-sm"
               />
             )}
@@ -124,10 +212,16 @@ function LogIn(props) {
             : "Already have an Account?"}
         </button>
         <button
-          onClick={handleError}
+          onClick={() => {
+            if (doNotHaveAnAccount) {
+              handleSignUpError();
+            } else {
+              handleError();
+            }
+          }}
           className="bg-primaryRed w-64 h-12 rounded-3xl mt-16 border-2 border-primaryRed hover:bg-transparent transition-all hover:scale-105 active:scale-95"
         >
-          {!doNotHaveAnAccount ? "Log In" : "Sign Up"}
+          {!doNotHaveAnAccount || successSignUp ? "Log In" : "Sign Up"}
         </button>
         {error && (
           <p className="text-red-500 text-sm mt-2">Please fill all fields</p>

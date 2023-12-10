@@ -10,6 +10,7 @@ export default function Home() {
   const [search, setSearch] = useState(" ");
   const [videos, setVideos] = useState([]);
   const [singleGenre, setSingleGenre] = useState("");
+  const [showLogin, setShowLogin] = useState(true);
 
   useEffect(() => {
     fetch("https://localhost:7001/api/Video/get-genres", {
@@ -62,7 +63,6 @@ export default function Home() {
     setSingleGenre(genreType);
   };
 
-  const [showLogin, setShowLogin] = useState(true);
   useEffect(() => {
     if (localStorage.getItem("token")) {
       setShowLogin(false);
