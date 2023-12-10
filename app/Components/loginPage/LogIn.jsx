@@ -104,15 +104,15 @@ function LogIn(props) {
   }, [requestCount]);
 
   return (
-    <div className="absolute top-0 left-0 w-screen h-screen bg-primaryBlack z-10">
-      <div className="flex flex-col justify-center items-center h-full w-fit center ">
+    <div className="fixed top-0 left-0 w-screen h-screen bg-primaryBlack z-10 ">
+      <div className="flex flex-col justify-center items-center h-full w-fit center">
         {(successSignUp || invalidCredentials) && (
           <div
             className={`${
               invalidCredentials ? "bg-red-700" : "bg-primaryRed"
             } w-rem34 h-12 rounded-3xl flex flex-col mb-4 justify-center items-center`}
           >
-            <p className="text-primaryBlack text-sm">
+            <p className="text-primaryBlack text-sm font-youtubeSansDarkMedium">
               {invalidCredentials
                 ? !doNotHaveAnAccount
                   ? "incorrect Email Or Password"

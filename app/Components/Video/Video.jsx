@@ -43,7 +43,7 @@ function Video(props) {
           </div>
           <div className="w-60">
             <div className=" w-60 text-white truncate">
-              <span className=" font-textFont font-bold mx-1 w-full">
+              <span className=" font-youtubeSansDarkBold font-bold mx-1 w-full">
                 {props.title}
               </span>
             </div>

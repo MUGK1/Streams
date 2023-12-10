@@ -70,7 +70,7 @@ export default function Home() {
   }, []);
   return (
     <main className="p-0 m-0">
-      {showLogin && <LogIn setShowLogin={setShowLogin} />}
+      {showLogin && <LogIn setShowLogin={setShowLogin} showLogin={showLogin} />}
       <div className="flex justify-center my-3">
         {genres.map((item, index) => (
           <Genres key={index} selectedGenre={handleGenreType} data={item} />

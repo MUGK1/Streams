@@ -124,7 +124,11 @@ function Channel(props) {
   return (
     <div>
       {isClicked && (
-        <VideoInfoForm isClicked={isClicked} setIsClicked={setIsClicked} />
+        <VideoInfoForm
+          channelId={channelId}
+          isClicked={isClicked}
+          setIsClicked={setIsClicked}
+        />
       )}
       <div>
         <Image

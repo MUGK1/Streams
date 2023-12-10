@@ -27,108 +27,108 @@ input[type="number"] {
     margin: 0 auto;
 }
 
-.buttonCancelDefault {
-    border: none;
-    /*text-align: center;*/
-    text-decoration: none;
-    display: block;
-    cursor: pointer;
-    border-radius: 4px;
-}
+/*.buttonCancelDefault {*/
+/*    border: none;*/
+/*    !*text-align: center;*!*/
+/*    text-decoration: none;*/
+/*    display: block;*/
+/*    cursor: pointer;*/
+/*    border-radius: 4px;*/
+/*}*/
 
 @font-face {
-    font-family: 'YouTubeSans';
+    font-family: 'YouTubeSansBlack';
     src: url('../public/Fonts/YouTubeSansBlack.otf') format('opentype');
     font-weight: 900;
     font-style: normal;
 }
 
 @font-face {
-    font-family: 'YouTubeSans';
+    font-family: 'YouTubeSansBold';
     src: url('../public/Fonts/YouTubeSansBold.otf') format('opentype');
     font-weight: bold;
     font-style: normal;
 }
 
 @font-face {
-    font-family: 'YouTubeSansDark';
+    font-family: 'YouTubeSansDarkBlack';
     src: url('../public/Fonts/YouTubeSansDarkBlack.otf') format('opentype');
     font-weight: 900;
     font-style: normal;
 }
 
 @font-face {
-    font-family: 'YouTubeSansDark';
+    font-family: 'YouTubeSansDarkBold';
     src: url('../public/Fonts/YouTubeSansDarkBold.otf') format('opentype');
     font-weight: bold;
     font-style: normal;
 }
 
 @font-face {
-    font-family: 'YouTubeSansDark';
+    font-family: 'YouTubeSansDarkExtraBold';
     src: url('../public/Fonts/YouTubeSansDarkExtraBold.otf') format('opentype');
     font-weight: 800;
     font-style: normal;
 }
 
 @font-face {
-    font-family: 'YouTubeSansDark';
+    font-family: 'YouTubeSansDarkLight';
     src: url('../public/Fonts/YouTubeSansDarkLight.otf') format('opentype');
     font-weight: 300;
     font-style: normal;
 }
 
 @font-face {
-    font-family: 'YouTubeSansDark';
+    font-family: 'YouTubeSansDarkMedium';
     src: url('../public/Fonts/YouTubeSansDarkMedium.otf') format('opentype');
     font-weight: 500;
     font-style: normal;
 }
 
 @font-face {
-    font-family: 'YouTubeSansDark';
+    font-family: 'YouTubeSansDarkRegular';
     src: url('../public/Fonts/YouTubeSansDarkRegular.otf') format('opentype');
     font-weight: normal;
     font-style: normal;
 }
 
 @font-face {
-    font-family: 'YouTubeSansDark';
+    font-family: 'YouTubeSansDarkSemiBold';
     src: url('../public/Fonts/YouTubeSansDarkSemiBold.otf') format('opentype');
     font-weight: 600;
     font-style: normal;
 }
 
 @font-face {
-    font-family: 'YouTubeSans';
+    font-family: 'YouTubeSansExtraBold';
     src: url('../public/Fonts/YouTubeSansExtraBold.otf') format('opentype');
     font-weight: 800;
     font-style: normal;
 }
 
 @font-face {
-    font-family: 'YouTubeSans';
+    font-family: 'YouTubeSansLight';
     src: url('../public/Fonts/YouTubeSansLight.otf') format('opentype');
     font-weight: 300;
     font-style: normal;
 }
 
 @font-face {
-    font-family: 'YouTubeSans';
+    font-family: 'YouTubeSansMedium';
     src: url('../public/Fonts/YouTubeSansMedium.otf') format('opentype');
     font-weight: 500;
     font-style: normal;
 }
 
 @font-face {
-    font-family: 'YouTubeSans';
+    font-family: 'YouTubeSansRegular';
     src: url('../public/Fonts/YouTubeSansRegular.otf') format('opentype');
     font-weight: normal;
     font-style: normal;
 }
 
 @font-face {
-    font-family: 'YouTubeSans';
+    font-family: 'YouTubeSansSemiBold';
     src: url('../public/Fonts/YouTubeSansSemiBold.otf') format('opentype');
     font-weight: 600;
     font-style: normal;

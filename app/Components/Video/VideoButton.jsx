@@ -11,7 +11,7 @@ function VideoButton({ children, id }) {
   return (
     <button
       onClick={handleButtonClick}
-      className="buttonCancelDefault rounded-xl hover:bg-backgroundGray active:bg-opacity-60 transition-all"
+      className="rounded hover:bg-backgroundGray active:bg-opacity-60 transition-all"
     >
       {children}
     </button>
