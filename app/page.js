@@ -6,9 +6,6 @@ import Genres from "./Components/Genres/Genre";
 import { useState, useEffect } from "react";
 import { useSearchParams, usePathname } from "next/navigation";
 
-
-
-
 export default function Home() {
   const [genres, setGenres] = useState([]);
   const [videos, setVideos] = useState([]);
@@ -77,17 +74,22 @@ export default function Home() {
     }
   }, [singleGenre]);
 
-  //Handle Search 
+  //Handle Search
   const searchParams = useSearchParams();
-  const search = searchParams.get('search');
+  const search = searchParams.get("search");
 
   useEffect(() => {
+    if (!localStorage.getItem("token")) return;
     if (search !== "") {
       fetch(
         `https://localhost:7001/api/Video/get-Videos-by-text?text=${search}`,
         {
           method: "GET",
           cache: "no-store",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
         },
       )
         .then((res) => {
@@ -100,7 +102,7 @@ export default function Home() {
           setVideos(data);
         });
     }
-  }, [searchParams.get('search')]);
+  }, [searchParams.get("search")]);
 
   const handleGenreType = (genreType) => {
     setSingleGenre(genreType);
