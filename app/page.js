@@ -4,10 +4,13 @@ import Video from "@/app/Components/Video/Video";
 import LogIn from "@/app/Components/loginPage/LogIn";
 import Genres from "./Components/Genres/Genre";
 import { useState, useEffect } from "react";
+import { useSearchParams, usePathname } from "next/navigation";
+
+
+
 
 export default function Home() {
   const [genres, setGenres] = useState([]);
-  const [search, setSearch] = useState(" ");
   const [videos, setVideos] = useState([]);
   const [singleGenre, setSingleGenre] = useState("");
   const [showLogin, setShowLogin] = useState(true);
@@ -58,6 +61,31 @@ export default function Home() {
         });
     }
   }, [singleGenre]);
+
+  //Handle Search 
+  const searchParams = useSearchParams();
+  const search = searchParams.get('search');
+
+  useEffect(() => {
+    if (search !== "") {
+      fetch(
+        `https://localhost:7001/api/Video/get-Videos-by-text?text=${search}`,
+        {
+          method: "GET",
+          cache: "no-store",
+        },
+      )
+        .then((res) => {
+          if (!res.ok) {
+            throw new Error("Error");
+          }
+          return res.json();
+        })
+        .then((data) => {
+          setVideos(data);
+        });
+    }
+  }, [searchParams.get('search')]);
 
   const handleGenreType = (genreType) => {
     setSingleGenre(genreType);
