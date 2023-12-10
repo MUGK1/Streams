@@ -13,9 +13,14 @@ export default function Home() {
   const [showLogin, setShowLogin] = useState(true);
 
   useEffect(() => {
+    if (!localStorage.getItem("token")) return;
     fetch("https://localhost:7001/api/Video/get-genres", {
       method: "GET",
       cache: "no-store",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
     })
       .then((res) => {
         return res.json();
@@ -26,9 +31,14 @@ export default function Home() {
   }, []);
 
   useEffect(() => {
+    if (!localStorage.getItem("token")) return;
     fetch("https://localhost:7001/api/Video/get-all-videos", {
       method: "GET",
       cache: "no-store",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
     })
       .then((res) => {
         return res.json();
@@ -39,12 +49,17 @@ export default function Home() {
   }, []);
 
   useEffect(() => {
+    if (!localStorage.getItem("token")) return;
     if (singleGenre !== "") {
       fetch(
         `https://localhost:7001/api/Video/get-Videos-by-Genre?genre=${singleGenre}`,
         {
           method: "GET",
           cache: "no-store",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
         },
       )
         .then((res) => {

@@ -5,8 +5,10 @@ import { useEffect, useState } from "react";
 export function channelPage({ params }) {
   const { id } = params;
   const [channelData, setChannelData] = useState([]);
+  const [isCreator, setIsCreator] = useState(false);
 
   useEffect(() => {
+    if (!localStorage.getItem("token")) return;
     fetch(`https://localhost:7001/api/channel/${id}`, {
       method: "GET",
       headers: {
@@ -17,6 +19,7 @@ export function channelPage({ params }) {
       .then((res) => res.json())
       .then((data) => {
         setChannelData(data);
+        console.log("Important Data to see NOW!!!", data);
       })
       .catch((err) => {
         console.log("err", err);
@@ -29,6 +32,8 @@ export function channelPage({ params }) {
       channelName={channelData.name}
       avatarURL={channelData.avatarUrl}
       createdAt={channelData.createdAt}
+      isOwner={channelData.isOwner}
+      viewsCount={channelData.viewsCount}
       subscribersCount={channelData.subscribersCount}
     />
   );

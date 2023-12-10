@@ -17,6 +17,7 @@ export default function RootLayout({ children }) {
   };
 
   useEffect(() => {
+    if (!localStorage.getItem("token")) return;
     fetch("https://localhost:7001/api/User/get-user-channels", {
       method: "GET",
       headers: {

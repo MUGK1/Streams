@@ -8,8 +8,15 @@ import VideoInfoForm from "@/app/Components/channelCom/VideoInfoForm";
 import { useEffect, useState } from "react";
 
 function Channel(props) {
-  const { channelId, channelName, avatarURL, createdAt, subscribersCount } =
-    props;
+  const {
+    channelId,
+    channelName,
+    avatarURL,
+    createdAt,
+    subscribersCount,
+    isOwner,
+    viewsCount,
+  } = props;
   const [isClicked, setIsClicked] = useState(false);
   const [channelVideos, setChannelVideos] = useState([]);
   const [totalSubscribersLikes, setTotalSubscribersLikes] = useState("0");
@@ -137,35 +144,44 @@ function Channel(props) {
           className="w-full h-auto object-cover"
         />
       </div>
+
       <div className="flex items-center justify-between w-9/12 mx-auto mt-24">
         <ChannelInfo
+          channelId={channelId}
           channelName={channelName}
           avatarURL={avatarURL}
           createdAt={createdAt}
+          isOwner={isOwner}
+          viewsCount={viewsCount}
           subscribersCount={subscribersCount}
         />
-        <div className="flex flex-col items-center justify-center">
-          <UploadVideo isClicked={isClicked} setIsClicked={setIsClicked} />
-          <div className="grid grid-cols-2 gap-x-10 gap-y-3 mt-7">
-            <div className="flex items-center p-2 rounded-xl bg-primaryRed">
-              <p className="font-black mr-2 ">Total Subscribers Likes: </p>
-              <p className="font-black mr-2 ">{totalSubscribersLikes}</p>
-            </div>
-            <div className="flex items-center p-2 rounded-xl bg-primaryRed">
-              <p className="font-black mr-2 ">Total Subscribers DisLikes: </p>
-              <p className="font-black mr-2 ">{totalSubscribersDisLikes}</p>
-            </div>
-            <div className="flex items-center p-2 rounded-xl bg-primaryRed">
-              <p className="font-black mr-2 ">Total UnSubscribers Likes: </p>
-              <p className="font-black mr-2 ">{totalUnSubscribersLikes}</p>
-            </div>
-            <div className="flex items-center p-2 rounded-xl bg-primaryRed">
-              <p className="font-black mr-2 ">Total UnSubscribers DisLikes: </p>
-              <p className="font-black mr-2 ">{totalUnSubscribersDisLikes}</p>
+        {isOwner && (
+          <div className="flex flex-col items-center justify-center">
+            <UploadVideo isClicked={isClicked} setIsClicked={setIsClicked} />
+            <div className="grid grid-cols-2 gap-x-10 gap-y-3 mt-7">
+              <div className="flex items-center p-2 rounded-xl bg-primaryRed">
+                <p className="font-black mr-2 ">Total Subscribers Likes: </p>
+                <p className="font-black mr-2 ">{totalSubscribersLikes}</p>
+              </div>
+              <div className="flex items-center p-2 rounded-xl bg-primaryRed">
+                <p className="font-black mr-2 ">Total Subscribers DisLikes: </p>
+                <p className="font-black mr-2 ">{totalSubscribersDisLikes}</p>
+              </div>
+              <div className="flex items-center p-2 rounded-xl bg-primaryRed">
+                <p className="font-black mr-2 ">Total UnSubscribers Likes: </p>
+                <p className="font-black mr-2 ">{totalUnSubscribersLikes}</p>
+              </div>
+              <div className="flex items-center p-2 rounded-xl bg-primaryRed">
+                <p className="font-black mr-2 ">
+                  Total UnSubscribers DisLikes:{" "}
+                </p>
+                <p className="font-black mr-2 ">{totalUnSubscribersDisLikes}</p>
+              </div>
             </div>
           </div>
-        </div>
+        )}
       </div>
+
       <div className="flex flex-wrap items-center pb-10 gap-10 justify-center mx-auto mt-24">
         {channelVideos.map((video) => {
           return (
