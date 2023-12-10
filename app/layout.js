@@ -8,9 +8,13 @@ import userAvatar from "../public/images/User_Avatar.svg";
 import Video from "./Components/Video/Video";
 import ChannelButton from "@/app/Components/channelCom/ChannelButton";
 import { useEffect, useState } from "react";
+import Link from "next/link";
 
 export default function RootLayout({ children }) {
   const [userChannels, setUserChannels] = useState([]);
+  const [mainState, setMainState] = useState("");
+  const [inputValue, setInputValue] = useState("");
+
   const handleLogOut = () => {
     localStorage.removeItem("token");
     window.location.reload();
@@ -30,6 +34,17 @@ export default function RootLayout({ children }) {
       .catch((err) => console.log(err));
   }, []);
 
+  //Move the values of the Search to the Home page
+  const handleInputChange = (event) => {
+    setInputValue(event.target.value);
+  };
+  const handleButtonClick = () => {
+    setMainState(inputValue);
+  };
+  useEffect(() => {
+    console.log("main: " + mainState);
+  }, [mainState]);
+
   return (
     <html lang="en">
       <head>
@@ -44,14 +59,28 @@ export default function RootLayout({ children }) {
             </a>
             <search className="relative">
               <input
+                value={inputValue}
+                onChange={handleInputChange}
                 type="text"
                 placeholder="Search"
                 className="focus:outline-none bg-transparent rounded-3xl border-2 border-secondaryBlack text-textColor w-rem26 pl-5 pr-5 pt-2 pb-2 text-xs"
               />
               <div className="absolute w-10 h-full bg-secondaryBlack top-0 right-0 rounded-r-3xl cursor-pointer">
-                <div className="flex justify-center items-center h-full">
-                  <Image src={search} alt="search" className="w-4 h-4" />
-                </div>
+                <Link
+                  href={{
+                    pathname: "/",
+                    query: {
+                      search: mainState,
+                    },
+                  }}
+                >
+                  <div
+                    onClick={handleButtonClick}
+                    className="flex justify-center items-center h-full"
+                  >
+                    <Image src={search} alt="search" className="w-4 h-4" />
+                  </div>
+                </Link>
               </div>
             </search>
             <div className="flex justify-between w-28">
