@@ -25,6 +25,7 @@ function ChannelInfo(props) {
   }
 
   function handleSubscribe() {
+    console.log(isSubscriber);
     if (isSubscriber === false) {
       setSubscribers(subscribers + 1);
       setIsSubscriber(!isSubscriber);
