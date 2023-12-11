@@ -1,18 +1,94 @@
+"use client";
 import Image from "next/image";
-import profile from "../../../public/images/channel_profile.jpg";
 import Video from "@/app/Components/Video/Video";
+import UserProfileImage from "@/app/Components/User/UserProfileImage";
 import userAvatar from "../../../public/images/User_Avatar.svg";
+import { useEffect, useState } from "react";
 
 function VideoPage({ params }) {
   const { id } = params;
-  const embedUrl = `https://www.youtube.com/embed/Xh26-fF6fTM?autoplay=1&mute=0`;
+  const [video, setVideo] = useState([]);
+  const [comments, setComments] = useState([]);
+  const [nextVideos, setNextVideos] = useState([]);
+
+  useEffect(() => {
+    if (!localStorage.getItem("token")) return;
+    fetch(`https://localhost:7001/api/video/${id}`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        setVideo(data);
+      })
+      .catch((err) => {
+        console.log("err", err);
+      });
+  }, []);
+
+  useEffect(() => {
+    if (!localStorage.getItem("token")) return;
+    fetch(`https://localhost:7001/api/impression/comments/${id}`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        setComments(data);
+      })
+      .catch((err) => {
+        console.log("err", err);
+      });
+  }, []);
+
+  useEffect(() => {
+    if (!localStorage.getItem("token")) return;
+    fetch(`https://localhost:7001/api/video/get-next-videos/?videoId=${id}`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        setNextVideos(data);
+      })
+      .catch((err) => {
+        console.log("err", err);
+      });
+  }, []);
+
+  function calculateDaysAgo(dateString1) {
+    const date1 = new Date(dateString1);
+    const today = new Date();
+    const differenceInMillis = Math.abs(today - date1);
+    const differenceInDays = Math.floor(
+      differenceInMillis / (1000 * 60 * 60 * 24)
+    );
+    let result = " ";
+    if (differenceInDays <= 365) {
+      result = `${differenceInDays} days ago`;
+    } else {
+      const years = Math.ceil(differenceInDays / 356);
+      result = `${years} years ago`;
+    }
+
+    return result;
+  }
 
   return (
     <div className="flex flex-col">
       <iframe
         width="100%"
         style={{ height: "65vh" }}
-        src={embedUrl}
+        src={"https://youtube.com/embed/" + video.url + "?autoplay=1&mute=1"}
         title="YouTube video player"
         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
         allowFullScreen
@@ -20,32 +96,37 @@ function VideoPage({ params }) {
       <div className="flex pl-2 w-full">
         <div className="w-3/4 m-4">
           <div className="font-textFont font-bold text-xl mb-4">
-            Next.js Projects: Build a Full-stack App with Next.js, Tailwind,
-            Radix UI, and Prisma
+            {video.title}
           </div>
           <div className="w-full flex">
             <div className="w-3/4 flex">
               <div className="w-12">
                 <Image
-                  src={profile}
-                  alt="profile Photo"
+                  src={video.avatarUrl}
+                  alt="Channel Avatar"
                   className="rounded-full w-12"
+                  height="48"
+                  width="48"
                 />
               </div>
               <div className="text-white-600 font-textFont whitespace-nowrap ml-2">
                 <span className="mx-1 block font-bold text-lg">
-                  Programming with Mosh
+                  {video.channelName}
                 </span>
                 <span className="mx-1 inline-block text-sm font-thin text-gray-400">
-                  1.2M subscribers
+                  {video.subscriptionsCount}
+                  {" subscribers"}
                 </span>
               </div>
-              {/* <button className="text-primaryBlack font-bold bg-white ml-14 rounded-full h-9 w-32">
-                Subscribe
-              </button> */}
-              <button className="text-white font-bold bg-gray-800 ml-14 rounded-full h-9 w-32">
-                Unsubscribe
-              </button>
+              {video.IsSubscribed ? (
+                <button className="text-white font-bold bg-gray-800 ml-14 rounded-full h-9 w-32">
+                  Unsubscribe
+                </button>
+              ) : (
+                <button className="text-primaryBlack font-bold bg-white ml-14 rounded-full h-9 w-32">
+                  Subscribe
+                </button>
+              )}
             </div>
             <div className="w-1/4 flex justify-end">
               <div className="bg-gray-800 text-white px-4 rounded-full flex items-center h-9">
@@ -104,20 +185,20 @@ function VideoPage({ params }) {
                     strokeLinejoin="round"
                   ></path>
                 </svg>
-                <span>Share</span>
+                <span className="text-white font-bold">Share</span>
               </div>
             </div>
           </div>
-          <div className="bg-gray-800 mt-6 rounded-lg p-4">
-            <span className="mx-1 font-bold inline-block">91k views</span>
+          <div className="bg-gray-800 mt-4 rounded-lg p-4">
+            <span className="mx-1 font-bold inline-block">
+              {video.viewsCount} {" views"}
+            </span>
             <span className="font-bold text-lg">&#183;</span>
-            <span className="mx-1 font-bold inline-block">3 months ago</span>
+            <span className="mx-1 font-bold inline-block">
+              {calculateDaysAgo(video.publishedAt)}
+            </span>
             <p className="text-sm font-normal mt-2">
-              The nanoscopic world is wild!! Looking at basic objects like a
-              grain of salt under an electron microscope looks like nothing you
-              would have expected. Furthermore, have you ever wondered whether
-              seeing a single atom is possible? Or how do scientists and
-              engineers create only a …more
+              {video.description} …more
             </p>
           </div>
           <div className="flex items-center justify-between p-4">
@@ -130,15 +211,55 @@ function VideoPage({ params }) {
               />
             </div>
             <div className="flex space-x-3">
-              <button className="px-6 py-2 rounded-full bg-blue-600 text-white">
-                Comment
+              <button className="px-6 py-2 rounded-full bg-gray-800 text-white font-bold">
+                Post
               </button>
             </div>
           </div>
+          <div className="p-4">
+            <span className="mx-1 font-bold inline-block mb-4">
+              {comments.length} Comments
+            </span>
+            {comments.map((comment) => {
+              return (
+                <div className="flex items-start mx-2 mb-4">
+                  <div className="mr-2">
+                    <UserProfileImage
+                      initials={comment.userInitials}
+                    ></UserProfileImage>
+                  </div>
+                  <div>
+                    <span className="text-sm font-semibold">
+                      {comment.userName}{" "}
+                    </span>
+                    <span className="font-bold text-lg">&#183;</span>
+                    <span className="text-xs text-gray-400">
+                      {" "}
+                      {calculateDaysAgo(comment.createdAt)}
+                    </span>
+                    <p className="text-sm">{comment.commentText}</p>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
         </div>
         <div className="w-1/4 m-4">
-          <Video></Video>
-          <Video></Video>
+          {nextVideos.map((video) => {
+            return (
+              <Video
+                key={video.id}
+                id={video.id}
+                title={video.title}
+                description={video.description}
+                views={video.viewsCount}
+                publishedAt={video.publishedAt}
+                thumbnail={video.thumbnailUrl}
+                channelName={video.channelName}
+                avatarUrl={video.avatarUrl}
+              />
+            );
+          })}
         </div>
       </div>
     </div>
