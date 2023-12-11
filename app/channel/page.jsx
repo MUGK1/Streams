@@ -63,7 +63,6 @@ function Channel(props) {
       .then((res) => res.json())
       .then((data) => {
         setTotalSubscribersDisLikes(data);
-        console.log("data totalSubscribersDisLikes", data);
       })
       .catch((err) => {
         console.log("err", err);
@@ -84,7 +83,6 @@ function Channel(props) {
       .then((res) => res.json())
       .then((data) => {
         setTotalUnSubscribersLikes(data);
-        console.log("data totalUnSubscribersLikes", data);
       })
       .catch((err) => {
         console.log("err", err);
@@ -127,7 +125,6 @@ function Channel(props) {
       .then((res) => res.json())
       .then((data) => {
         setTotalUnSubscribersDisLikes(data);
-        console.log("data totalSubscribersLikes", data);
       })
       .catch((err) => {
         console.log("err", err);

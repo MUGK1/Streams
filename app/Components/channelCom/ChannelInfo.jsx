@@ -30,7 +30,7 @@ function ChannelInfo(props) {
       setSubscribers(subscribers + 1);
       setIsSubscriber(!isSubscriber);
 
-      if (!localStorage.getItem("token")) {
+      if (localStorage.getItem("token")) {
         fetch(
           `https://localhost:7001/api/Channel/Subscribe?channelId=${channelId}`,
           {

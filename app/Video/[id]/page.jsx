@@ -70,7 +70,7 @@ function VideoPage({ params }) {
     const today = new Date();
     const differenceInMillis = Math.abs(today - date1);
     const differenceInDays = Math.floor(
-      differenceInMillis / (1000 * 60 * 60 * 24)
+      differenceInMillis / (1000 * 60 * 60 * 24),
     );
     let result = " ";
     if (differenceInDays <= 365) {
@@ -224,9 +224,7 @@ function VideoPage({ params }) {
               return (
                 <div className="flex items-start mx-2 mb-4">
                   <div className="mr-2">
-                    <UserProfileImage
-                      initials={comment.userInitials}
-                    ></UserProfileImage>
+                    <UserProfileImage initials={comment.userInitials} />
                   </div>
                   <div>
                     <span className="text-sm font-semibold">
