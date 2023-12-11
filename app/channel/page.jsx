@@ -16,6 +16,7 @@ function Channel(props) {
     subscribersCount,
     isOwner,
     viewsCount,
+    isSubscribed,
   } = props;
   const [isClicked, setIsClicked] = useState(false);
   const [channelVideos, setChannelVideos] = useState([]);
@@ -91,16 +92,20 @@ function Channel(props) {
   }, [channelId]);
 
   useEffect(() => {
+    if (!localStorage.getItem("token")) return;
     fetch(
       `https://localhost:7001/api/Channel/get-subscribersLikes?ChannelId=${channelId}`,
       {
         method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
       }
     )
       .then((res) => res.json())
       .then((data) => {
         setTotalSubscribersLikes(data);
-        console.log("data totalSubscribersLikes", data);
       })
       .catch((err) => {
         console.log("err", err);
@@ -108,6 +113,7 @@ function Channel(props) {
   }, [channelId]);
   //
   useEffect(() => {
+    if (!localStorage.getItem("token")) return;
     fetch(
       `https://localhost:7001/api/Channel/get-unsubscribersDisLikes?ChannelId=${channelId}`,
       {
@@ -154,6 +160,7 @@ function Channel(props) {
           isOwner={isOwner}
           viewsCount={viewsCount}
           subscribersCount={subscribersCount}
+          isSubscribed={isSubscribed}
         />
         {isOwner && (
           <div className="flex flex-col items-center justify-center">

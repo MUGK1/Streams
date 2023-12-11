@@ -19,12 +19,13 @@ export function channelPage({ params }) {
       .then((res) => res.json())
       .then((data) => {
         setChannelData(data);
-        console.log("Important Data to see NOW!!!", data);
       })
       .catch((err) => {
         console.log("err", err);
       });
   }, []);
+
+  console.log(channelData);
 
   return (
     <Channel
@@ -35,6 +36,7 @@ export function channelPage({ params }) {
       isOwner={channelData.isOwner}
       viewsCount={channelData.viewsCount}
       subscribersCount={channelData.subscribersCount}
+      isSubscribed={channelData.isSubscribed}
     />
   );
 }

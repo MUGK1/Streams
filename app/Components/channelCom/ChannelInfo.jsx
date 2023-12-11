@@ -12,8 +12,10 @@ function ChannelInfo(props) {
     subscribersCount,
     isOwner,
     viewsCount,
+    isSubscribed,
   } = props;
-  const [isSubscribed, setIsSubscribed] = useState(false);
+  const [isSubscriber, setIsSubscriber] = useState(false);
+  const [clicked, setClicked] = useState(false);
   const [subscribers, setSubscribers] = useState(0);
 
   function dateFormat(date) {
@@ -23,10 +25,46 @@ function ChannelInfo(props) {
   }
 
   function handleSubscribe() {
-    if (!isSubscribed) {
+    if (isSubscriber === false) {
       setSubscribers(subscribers + 1);
-    } else {
+      setIsSubscriber(!isSubscriber);
+
+      if (!localStorage.getItem("token")) {
+        fetch(
+          `https://localhost:7001/api/Channel/Subscribe?channelId=${channelId}`,
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${localStorage.getItem("token")}`,
+            },
+          },
+        )
+          .then((res) => res.json())
+          .catch((err) => {
+            console.log("err", err);
+          });
+      }
+    } else if (isSubscriber === true) {
       setSubscribers(subscribers - 1);
+      setIsSubscriber(!isSubscriber);
+
+      if (localStorage.getItem("token")) {
+        fetch(
+          `https://localhost:7001/api/Channel/UnSubscribe?channelId=${channelId}`,
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${localStorage.getItem("token")}`,
+            },
+          },
+        )
+          .then((res) => res.json())
+          .catch((err) => {
+            console.log("err", err);
+          });
+      }
     }
   }
 
@@ -35,6 +73,12 @@ function ChannelInfo(props) {
       setSubscribers(subscribersCount);
     }, 500);
   }, [subscribersCount]);
+
+  useEffect(() => {
+    setTimeout(() => {
+      setIsSubscriber(isSubscribed);
+    }, 800);
+  }, [isSubscribed]);
 
   return (
     <div className="flex items-center justify-between w-rem34">
@@ -58,7 +102,6 @@ function ChannelInfo(props) {
           <button
             onClick={() => {
               if (!isOwner) {
-                setIsSubscribed(!isSubscribed);
                 handleSubscribe();
               }
             }}
@@ -69,12 +112,12 @@ function ChannelInfo(props) {
             }  transition-all ${
               isOwner ? "bg-secondaryBlack text-textColor" : ""
             } ${
-              isSubscribed
+              isSubscriber
                 ? "bg-primaryRed text-white"
                 : "text-primaryRed bg-white"
             }`}
           >
-            {isSubscribed || isOwner ? "Subscribed" : "Subscribe"}
+            {isSubscriber || isOwner ? "Subscribed" : "Subscribe"}
           </button>
         </div>
       </div>
