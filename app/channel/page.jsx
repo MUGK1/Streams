@@ -34,7 +34,7 @@ function Channel(props) {
           "Content-Type": "application/json",
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
-      },
+      }
     )
       .then((res) => res.json())
       .then((data) => {
@@ -57,7 +57,7 @@ function Channel(props) {
           "Content-Type": "application/json",
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
-      },
+      }
     )
       .then((res) => res.json())
       .then((data) => {
@@ -78,7 +78,7 @@ function Channel(props) {
           "Content-Type": "application/json",
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
-      },
+      }
     )
       .then((res) => res.json())
       .then((data) => {
@@ -95,7 +95,7 @@ function Channel(props) {
       `https://localhost:7001/api/Channel/get-subscribersLikes?ChannelId=${channelId}`,
       {
         method: "GET",
-      },
+      }
     )
       .then((res) => res.json())
       .then((data) => {
@@ -116,7 +116,7 @@ function Channel(props) {
           "Content-Type": "application/json",
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
-      },
+      }
     )
       .then((res) => res.json())
       .then((data) => {
