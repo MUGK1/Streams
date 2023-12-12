@@ -78,8 +78,8 @@ function LogIn(props) {
             email: "",
             password: "",
           });
-          setIsLoading(false);
         }
+        setIsLoading(false);
         return res.json();
       })
       .then((data) => {
@@ -115,8 +115,8 @@ function LogIn(props) {
             dateOfBirth: "",
             country: "",
           });
-          setIsLoading(false);
         }
+        setIsLoading(false);
         return res.json();
       })
       .catch((err) => {

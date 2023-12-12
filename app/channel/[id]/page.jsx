@@ -25,8 +25,6 @@ export function channelPage({ params }) {
       });
   }, []);
 
-  console.log(channelData);
-
   return (
     <Channel
       channelId={id}

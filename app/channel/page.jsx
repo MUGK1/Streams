@@ -40,14 +40,11 @@ function Channel(props) {
       .then((res) => res.json())
       .then((data) => {
         setChannelVideos(data);
-        console.log("data ", data);
       })
       .catch((err) => {
         console.log("err", err);
       });
   }, [channelId]);
-
-  console.log("channelVideos", channelVideos);
 
   useEffect(() => {
     fetch(
