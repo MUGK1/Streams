@@ -152,6 +152,7 @@ function VideoPage({ params }) {
                 thumbnail={video.thumbnailUrl}
                 channelName={video.channelName}
                 avatarUrl={video.avatarUrl}
+                url={video.url}
               />
             );
           })}

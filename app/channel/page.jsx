@@ -35,7 +35,7 @@ function Channel(props) {
           "Content-Type": "application/json",
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
-      },
+      }
     )
       .then((res) => res.json())
       .then((data) => {
@@ -58,7 +58,7 @@ function Channel(props) {
           "Content-Type": "application/json",
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
-      },
+      }
     )
       .then((res) => res.json())
       .then((data) => {
@@ -78,7 +78,7 @@ function Channel(props) {
           "Content-Type": "application/json",
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
-      },
+      }
     )
       .then((res) => res.json())
       .then((data) => {
@@ -99,7 +99,7 @@ function Channel(props) {
           "Content-Type": "application/json",
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
-      },
+      }
     )
       .then((res) => res.json())
       .then((data) => {
@@ -120,7 +120,7 @@ function Channel(props) {
           "Content-Type": "application/json",
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
-      },
+      }
     )
       .then((res) => res.json())
       .then((data) => {
@@ -205,6 +205,7 @@ function Channel(props) {
               thumbnail={video.thumbnailUrl}
               channelName={video.channelName}
               avatarUrl={video.avatarUrl}
+              url={video.url}
             />
           );
         })}

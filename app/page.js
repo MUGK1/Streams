@@ -60,7 +60,7 @@ export default function Home() {
             "Content-Type": "application/json",
             Authorization: `Bearer ${localStorage.getItem("token")}`,
           },
-        },
+        }
       )
         .then((res) => {
           if (!res.ok) {
@@ -90,7 +90,7 @@ export default function Home() {
             "Content-Type": "application/json",
             Authorization: `Bearer ${localStorage.getItem("token")}`,
           },
-        },
+        }
       )
         .then((res) => {
           if (!res.ok) {
@@ -133,6 +133,7 @@ export default function Home() {
             thumbnail={video.thumbnailUrl}
             channelName={video.channelName}
             avatarUrl={video.avatarUrl}
+            url={video.url}
           />
         ))}
       </div>
