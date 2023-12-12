@@ -5,11 +5,13 @@ import SubscriptionButton from "@/app/Components/channelCom/SubscriptionButton";
 import SocialButtons from "@/app/Components/video/SocialButtons";
 import Comments from "@/app/Components/video/Comments";
 import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 
 function VideoPage({ params }) {
   const { id } = params;
   const [video, setVideo] = useState([]);
   const [nextVideos, setNextVideos] = useState([]);
+  const router = useRouter();
 
   useEffect(() => {
     if (!localStorage.getItem("token")) return;
@@ -47,6 +49,10 @@ function VideoPage({ params }) {
       });
   }, []);
 
+  const handleButtonClick = () => {
+    router.push(`/channel/${video.channelId}`);
+  };
+
   function calculateDaysAgo(dateString1) {
     const date1 = new Date(dateString1);
     const today = new Date();
@@ -70,7 +76,7 @@ function VideoPage({ params }) {
       <iframe
         width="100%"
         style={{ height: "65vh" }}
-        src={"https://youtube.com/embed/" + video.url + "?autoplay=1&mute=1"}
+        src={"https://youtube.com/embed/" + video.url + "?autoplay=1&mute=0"}
         title="YouTube video player"
         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
         allowFullScreen
@@ -82,7 +88,7 @@ function VideoPage({ params }) {
           </div>
           <div className="w-full flex">
             <div className="w-3/4 flex">
-              <div className="w-12">
+              <div className="w-12 cursor-pointer" onClick={handleButtonClick}>
                 <Image
                   src={video.avatarUrl}
                   alt="Channel Avatar"
@@ -91,7 +97,10 @@ function VideoPage({ params }) {
                   width="48"
                 />
               </div>
-              <div className="text-white-600 font-textFont whitespace-nowrap ml-2">
+              <div
+                className="text-white-600 font-textFont whitespace-nowrap ml-2 cursor-pointer"
+                onClick={handleButtonClick}
+              >
                 <span className="mx-1 block font-bold text-lg">
                   {video.channelName}
                 </span>

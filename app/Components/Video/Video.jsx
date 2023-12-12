@@ -1,6 +1,4 @@
-import thumbnail from "../../../public/images/Thumbnail.jpg";
 import Image from "next/image";
-import profile from "../../../public/images/channel_profile.jpg";
 import VideoButton from "@/app/Components/Video/VideoButton";
 
 function Video(props) {

@@ -76,7 +76,7 @@ export default function Home() {
 
   //Handle Search
   const searchParams = useSearchParams();
-  const search = searchParams.get("search_query");
+  const search = searchParams.get("search");
 
   useEffect(() => {
     if (!localStorage.getItem("token")) return;

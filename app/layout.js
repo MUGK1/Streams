@@ -112,7 +112,13 @@ export default function RootLayout({ children }) {
               <div className="cursor-pointer flex justify-center items-center">
                 {userChannels.map((channel, index) => (
                   <ChannelButton key={index} id={channel.id}>
-                    <Image src={userAvatar} alt="userAvatar" className="mr-3" />
+                    <Image
+                      src={channel.avatarUrl}
+                      alt="Channel Avatar"
+                      className="rounded-full mr-3"
+                      height="36"
+                      width="36"
+                    />
                   </ChannelButton>
                 ))}
               </div>
