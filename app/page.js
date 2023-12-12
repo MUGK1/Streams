@@ -64,7 +64,7 @@ export default function Home() {
 
   //Handle Search 
   const searchParams = useSearchParams();
-  const search = searchParams.get('search');
+  const search = searchParams.get('search_query');
 
   useEffect(() => {
     if (search !== "") {

@@ -73,7 +73,7 @@ export default function RootLayout({ children }) {
               <Link href={{
                  pathname: '/',
                 query: {
-                search: mainState}}}>
+                search_query: mainState}}}>
                 <div onClick={handleButtonClick}className="flex justify-center items-center h-full">
                   <Image src={search} alt="search" className="w-4 h-4" />
                 </div>
