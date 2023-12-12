@@ -29,6 +29,7 @@ module.exports = {
         rem30: "30rem",
         rem32: "32rem",
         rem34: "34rem",
+        rem40: "40rem",
         pr95: "95%",
       },
     },

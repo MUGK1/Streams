@@ -35,7 +35,7 @@ function Channel(props) {
           "Content-Type": "application/json",
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
-      },
+      }
     )
       .then((res) => res.json())
       .then((data) => {
@@ -55,7 +55,7 @@ function Channel(props) {
           "Content-Type": "application/json",
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
-      },
+      }
     )
       .then((res) => res.json())
       .then((data) => {
@@ -75,7 +75,7 @@ function Channel(props) {
           "Content-Type": "application/json",
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
-      },
+      }
     )
       .then((res) => res.json())
       .then((data) => {
@@ -96,7 +96,7 @@ function Channel(props) {
           "Content-Type": "application/json",
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
-      },
+      }
     )
       .then((res) => res.json())
       .then((data) => {
@@ -117,7 +117,7 @@ function Channel(props) {
           "Content-Type": "application/json",
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
-      },
+      }
     )
       .then((res) => res.json())
       .then((data) => {
@@ -141,11 +141,11 @@ function Channel(props) {
         <Image
           src={ChannelBanner}
           alt="Channel Banner"
-          className="w-full h-auto object-cover"
+          className="w-full h-60 object-cover"
         />
       </div>
 
-      <div className="flex items-center justify-between w-9/12 mx-auto mt-24">
+      <div className="flex items-center justify-between w-10/12 mx-auto mt-24">
         <ChannelInfo
           channelId={channelId}
           channelName={channelName}
@@ -202,6 +202,7 @@ function Channel(props) {
               thumbnail={video.thumbnailUrl}
               channelName={video.channelName}
               avatarUrl={video.avatarUrl}
+              url={video.url}
             />
           );
         })}

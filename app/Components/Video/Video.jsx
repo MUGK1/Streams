@@ -1,6 +1,4 @@
-import thumbnail from "../../../public/images/Thumbnail.jpg";
 import Image from "next/image";
-import profile from "../../../public/images/channel_profile.jpg";
 import VideoButton from "@/app/Components/Video/VideoButton";
 
 function Video(props) {
@@ -9,7 +7,7 @@ function Video(props) {
     const today = new Date();
     const differenceInMillis = Math.abs(today - date1);
     const differenceInDays = Math.floor(
-      differenceInMillis / (1000 * 60 * 60 * 24),
+      differenceInMillis / (1000 * 60 * 60 * 24)
     );
     let result = " ";
     if (differenceInDays <= 365) {
@@ -26,17 +24,23 @@ function Video(props) {
       <div className="group w-80 rounded p-2">
         <div className="mb-2 group-hover:cursor-pointer">
           <Image
-            src={thumbnail}
+            src={
+              "https://img.youtube.com/vi/" + props.url + "/maxresdefault.jpg"
+            }
             alt="Logo"
-            className="w-full rounded-md group-hover:rounded-none "
+            className="w-full rounded-md group-hover:rounded-none"
+            width={320}
+            height={100}
           />
         </div>
         <div className="w-full flex flex-start">
           <div className=" w-10">
             <Image
-              src={profile}
-              alt="profile Photo"
-              className=" rounded-full w-8"
+              src={props.avatarUrl}
+              alt="Channel Avatar"
+              className="rounded-full w-12"
+              height="32"
+              width="32"
             />
           </div>
           <div className="w-60">

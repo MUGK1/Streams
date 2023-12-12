@@ -39,7 +39,7 @@ function ChannelInfo(props) {
               "Content-Type": "application/json",
               Authorization: `Bearer ${localStorage.getItem("token")}`,
             },
-          },
+          }
         )
           .then((res) => res.json())
           .catch((err) => {
@@ -59,7 +59,7 @@ function ChannelInfo(props) {
               "Content-Type": "application/json",
               Authorization: `Bearer ${localStorage.getItem("token")}`,
             },
-          },
+          }
         )
           .then((res) => res.json())
           .catch((err) => {
@@ -82,9 +82,15 @@ function ChannelInfo(props) {
   }, [isSubscribed]);
 
   return (
-    <div className="flex items-center justify-between w-rem34">
+    <div className="flex items-center justify-between w-rem40">
       <div>
-        <Image src={ChannelLogo} alt="Channel Logo" className="w-44" />
+        <Image
+          src={props.avatarURL}
+          alt="Channel Avatar"
+          className="rounded-full"
+          height="176"
+          width="176"
+        />
       </div>
       <div>
         <h1 className="font-textFont font-black text-4xl mb-3">
