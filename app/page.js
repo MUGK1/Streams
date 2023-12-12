@@ -6,9 +6,6 @@ import Genres from "./Components/Genres/Genre";
 import { useState, useEffect } from "react";
 import { useSearchParams, usePathname } from "next/navigation";
 
-
-
-
 export default function Home() {
   const [genres, setGenres] = useState([]);
   const [videos, setVideos] = useState([]);
@@ -16,9 +13,14 @@ export default function Home() {
   const [showLogin, setShowLogin] = useState(true);
 
   useEffect(() => {
+    if (!localStorage.getItem("token")) return;
     fetch("https://localhost:7001/api/Video/get-genres", {
       method: "GET",
       cache: "no-store",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
     })
       .then((res) => {
         return res.json();
@@ -29,9 +31,14 @@ export default function Home() {
   }, []);
 
   useEffect(() => {
+    if (!localStorage.getItem("token")) return;
     fetch("https://localhost:7001/api/Video/get-all-videos", {
       method: "GET",
       cache: "no-store",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
     })
       .then((res) => {
         return res.json();
@@ -42,12 +49,17 @@ export default function Home() {
   }, []);
 
   useEffect(() => {
+    if (!localStorage.getItem("token")) return;
     if (singleGenre !== "") {
       fetch(
         `https://localhost:7001/api/Video/get-Videos-by-Genre?genre=${singleGenre}`,
         {
           method: "GET",
           cache: "no-store",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
         },
       )
         .then((res) => {
@@ -62,17 +74,22 @@ export default function Home() {
     }
   }, [singleGenre]);
 
-  //Handle Search 
+  //Handle Search
   const searchParams = useSearchParams();
-  const search = searchParams.get('search_query');
+  const search = searchParams.get("search_query");
 
   useEffect(() => {
+    if (!localStorage.getItem("token")) return;
     if (search !== "") {
       fetch(
         `https://localhost:7001/api/Video/get-Videos-by-text?text=${search}`,
         {
           method: "GET",
           cache: "no-store",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
         },
       )
         .then((res) => {
@@ -85,7 +102,7 @@ export default function Home() {
           setVideos(data);
         });
     }
-  }, [searchParams.get('search')]);
+  }, [searchParams.get("search")]);
 
   const handleGenreType = (genreType) => {
     setSingleGenre(genreType);

@@ -4,8 +4,6 @@ import profile from "../../../public/images/channel_profile.jpg";
 import VideoButton from "@/app/Components/Video/VideoButton";
 
 function Video(props) {
-  const id = 13;
-
   function calculateDaysAgo(dateString1) {
     const date1 = new Date(dateString1);
     const today = new Date();
