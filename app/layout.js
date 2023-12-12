@@ -9,11 +9,13 @@ import Video from "./Components/Video/Video";
 import ChannelButton from "@/app/Components/channelCom/ChannelButton";
 import { useEffect, useState } from "react";
 import Link from "next/link";
+import UserProfileImage from "@/app/Components/User/UserProfileImage";
 
 export default function RootLayout({ children }) {
   const [userChannels, setUserChannels] = useState([]);
   const [mainState, setMainState] = useState("");
   const [inputValue, setInputValue] = useState("");
+  const [userName, setUserName] = useState("");
 
   const handleLogOut = () => {
     localStorage.removeItem("token");
@@ -33,6 +35,29 @@ export default function RootLayout({ children }) {
       .then((data) => setUserChannels(data))
       .catch((err) => console.log(err));
   }, []);
+
+  useEffect(() => {
+    if (!localStorage.getItem("token")) return;
+    fetch("https://localhost:7001/api/User/get-user-info", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+    })
+      .then((res) => res.json())
+      .then((data) => setUserName(data.name))
+      .catch((err) => console.log(err));
+  }, []);
+
+  //Username 2 Litter Initials
+  const initials = () => {
+    let initials = userName.match(/\b\w/g) || [];
+    initials = (
+      (initials.shift() || "") + (initials.pop() || "")
+    ).toUpperCase();
+    return initials;
+  };
 
   //Move the values of the Search to the Home page
   const handleInputChange = (event) => {
@@ -83,8 +108,8 @@ export default function RootLayout({ children }) {
                 </Link>
               </div>
             </search>
-            <div className="flex justify-between w-28">
-              <div className="cursor-pointer">
+            <div className="flex justify-between items-center w-32">
+              <div className="cursor-pointer flex justify-center items-center">
                 {userChannels.map((channel, index) => (
                   <ChannelButton key={index} id={channel.id}>
                     <Image src={userAvatar} alt="userAvatar" className="mr-3" />
@@ -96,8 +121,8 @@ export default function RootLayout({ children }) {
                   <Image src={logout} alt="logout" className="" />
                 </a>
               </div>
-              <div className="cursor-pointer">
-                <Image src={userAvatar} alt="userAvatar" className="" />
+              <div className="cursor-default">
+                <UserProfileImage initials={initials()} />
               </div>
             </div>
           </div>

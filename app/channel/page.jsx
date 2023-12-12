@@ -162,24 +162,30 @@ function Channel(props) {
         {isOwner && (
           <div className="flex flex-col items-center justify-center">
             <UploadVideo isClicked={isClicked} setIsClicked={setIsClicked} />
-            <div className="grid grid-cols-2 gap-x-10 gap-y-3 mt-7">
-              <div className="flex items-center p-2 rounded-xl bg-primaryRed">
-                <p className="font-black mr-2 ">Total Subscribers Likes: </p>
-                <p className="font-black mr-2 ">{totalSubscribersLikes}</p>
-              </div>
-              <div className="flex items-center p-2 rounded-xl bg-primaryRed">
-                <p className="font-black mr-2 ">Total Subscribers DisLikes: </p>
-                <p className="font-black mr-2 ">{totalSubscribersDisLikes}</p>
-              </div>
-              <div className="flex items-center p-2 rounded-xl bg-primaryRed">
-                <p className="font-black mr-2 ">Total UnSubscribers Likes: </p>
-                <p className="font-black mr-2 ">{totalUnSubscribersLikes}</p>
-              </div>
-              <div className="flex items-center p-2 rounded-xl bg-primaryRed">
-                <p className="font-black mr-2 ">
-                  Total UnSubscribers DisLikes:{" "}
+            <div className="grid grid-cols-4 gap-x-0 gap-y-1 mt-7">
+              <div className="flex flex-col justify-between items-center py-2 px-4 border-secondaryBlack border-r-2">
+                <p className="font-youtubeSansDarkExtraBold bg-secondaryBlack w-12 h-12 rounded-full text-3xl text-center flex items-center justify-center mb-3 text-primaryRed">
+                  {totalSubscribersLikes}
                 </p>
-                <p className="font-black mr-2 ">{totalUnSubscribersDisLikes}</p>
+                <p className="font-youtubeSansDarkBlack"> Subs Likes </p>
+              </div>
+              <div className="flex flex-col justify-between items-center py-2 px-4 border-secondaryBlack border-r-2">
+                <p className="font-youtubeSansDarkExtraBold bg-secondaryBlack w-12 h-12 rounded-full text-3xl text-center flex items-center justify-center mb-3 text-primaryRed">
+                  {totalSubscribersDisLikes}
+                </p>
+                <p className="font-youtubeSansDarkBlack ">Subs DisLikes </p>
+              </div>
+              <div className="flex flex-col justify-between items-center py-2 px-4 border-secondaryBlack border-r-2">
+                <p className="font-youtubeSansDarkExtraBold bg-secondaryBlack w-12 h-12 rounded-full text-3xl text-center flex items-center justify-center mb-3 text-primaryRed">
+                  {totalUnSubscribersLikes}
+                </p>
+                <p className="font-youtubeSansDarkBlack ">UnSubs Likes </p>
+              </div>
+              <div className="flex flex-col justify-between items-center py-2 px-4">
+                <p className="font-youtubeSansDarkExtraBold bg-secondaryBlack w-12 h-12 rounded-full text-3xl text-center flex items-center justify-center mb-3 text-primaryRed">
+                  {totalUnSubscribersDisLikes}
+                </p>
+                <p className="font-youtubeSansDarkBlack ">UnSubs DisLikes</p>
               </div>
             </div>
           </div>

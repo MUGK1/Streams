@@ -2,6 +2,7 @@
 import Image from "next/image";
 import logo from "@/public/images/Logo.svg";
 import { useEffect, useState } from "react";
+import { BarLoader } from "react-spinners";
 
 function LogIn(props) {
   const [doNotHaveAnAccount, setDoNotHaveAnAccount] = useState(false);
@@ -23,14 +24,17 @@ function LogIn(props) {
   const [requestCount, setRequestCount] = useState(0);
   const [successSignUp, setSuccessSignUp] = useState(false);
   const [invalidCredentials, setInvalidCredentials] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleChange = (e) => {
     setIsChecked(e.target.checked);
   };
 
   const handleError = () => {
+    setIsLoading(true);
     if (userInfo.email === "" || userInfo.password === "") {
       setError(true);
+      setIsLoading(false);
     } else {
       setError(false);
       setRequestCount((prev) => prev + 1);
@@ -38,6 +42,7 @@ function LogIn(props) {
   };
 
   const handleSignUpError = () => {
+    setIsLoading(true);
     if (
       signUpInfo.email === "" ||
       signUpInfo.password === "" ||
@@ -45,8 +50,10 @@ function LogIn(props) {
       signUpInfo.dateOfBirth === ""
     ) {
       setError(true);
+      setIsLoading(false);
     } else if (isChecked && signUpInfo.country === "") {
       setError(true);
+      setIsLoading(false);
     } else {
       setError(false);
       setRequestCount((prev) => prev + 1);
@@ -66,6 +73,12 @@ function LogIn(props) {
       .then((res) => {
         if (!res.ok) {
           setInvalidCredentials(true);
+        } else if (res.ok) {
+          setUserInfo({
+            email: "",
+            password: "",
+          });
+          setIsLoading(false);
         }
         return res.json();
       })
@@ -95,6 +108,14 @@ function LogIn(props) {
         if (res.ok) {
           setSuccessSignUp(true);
           setDoNotHaveAnAccount(false);
+          setSignUpInfo({
+            name: "",
+            email: "",
+            password: "",
+            dateOfBirth: "",
+            country: "",
+          });
+          setIsLoading(false);
         }
         return res.json();
       })
@@ -205,6 +226,7 @@ function LogIn(props) {
           className="cursor-pointer text-xs"
           onClick={() => {
             setDoNotHaveAnAccount(!doNotHaveAnAccount);
+            setSuccessSignUp(false);
           }}
         >
           {!doNotHaveAnAccount
@@ -221,7 +243,21 @@ function LogIn(props) {
           }}
           className="bg-primaryRed w-64 h-12 rounded-3xl mt-16 border-2 border-primaryRed hover:bg-transparent transition-all hover:scale-105 active:scale-95"
         >
-          {!doNotHaveAnAccount || successSignUp ? "Log In" : "Sign Up"}
+          {isLoading ? (
+            <div className="w-full h-full flex justify-center items-center">
+              <BarLoader
+                color="#fff"
+                loading={isLoading}
+                size={150}
+                aria-label="Loading Spinner"
+                data-testid="loader"
+              />
+            </div>
+          ) : !doNotHaveAnAccount || successSignUp ? (
+            "Log In"
+          ) : (
+            "Sign Up"
+          )}
         </button>
         {error && (
           <p className="text-red-500 text-sm mt-2">Please fill all fields</p>
