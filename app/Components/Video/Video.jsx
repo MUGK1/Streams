@@ -19,10 +19,18 @@ function Video(props) {
 
     return result;
   }
+  function formatTwoDigits(number) {
+    let numberString = number.toString();
+    if (number < 10) {
+      numberString = '0' + numberString;
+    }
+  
+    return numberString;
+  }
   return (
     <VideoButton id={props.id}>
       <div className="group w-80 rounded p-2">
-        <div className="mb-2 group-hover:cursor-pointer">
+        <div className="mb-2 relative group-hover:cursor-pointer">
           <Image
             src={
               "https://img.youtube.com/vi/" + props.url + "/maxresdefault.jpg"
@@ -32,6 +40,7 @@ function Video(props) {
             width={320}
             height={100}
           />
+          <div className="absolute w-fit bottom-2.5 right-2.5 px-1 font-bold py-0 rounded-md text-white bg-[#000000]/[.5] ">{Math.floor( Math.random() *(60-10)+10) }:{formatTwoDigits( Math.floor( Math.random() *59) )}</div>
         </div>
         <div className="w-full flex flex-start">
           <div className=" w-10">
