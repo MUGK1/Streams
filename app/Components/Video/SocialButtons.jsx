@@ -29,7 +29,7 @@ const SocialButtons = (props) => {
 
   const handleLike = () => {
     if (localStorage.getItem("token")) {
-      fetch(`https://localhost:7001/api/impressions/like?videoId=${videoId}`, {
+      fetch(`https://localhost:7001/api/impression/like?videoId=${videoId}`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -58,14 +58,14 @@ const SocialButtons = (props) => {
   const handleDislike = () => {
     if (localStorage.getItem("token")) {
       fetch(
-        `https://localhost:7001/api/impressions/dislike?videoId=${videoId}`,
+        `https://localhost:7001/api/impression/dislike?videoId=${videoId}`,
         {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
             Authorization: `Bearer ${localStorage.getItem("token")}`,
           },
-        }
+        },
       )
         .then((res) => {
           if (likes) {
